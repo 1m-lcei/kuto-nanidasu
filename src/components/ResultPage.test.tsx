@@ -4,7 +4,6 @@ import { useDiagnosisDispatch } from "@/app/DiagnosisState";
 import useResult from "@/hooks/useResult";
 import ResultPage from "./ResultPage";
 
-// Mock hooks
 vi.mock("@/hooks/useResult");
 vi.mock("@/app/DiagnosisState", () => ({
   useDiagnosisDispatch: vi.fn(),
@@ -45,7 +44,6 @@ describe("ResultPage", () => {
   it("結果タイプ情報の表示", () => {
     render(<ResultPage />);
 
-    // h2要素に限定してテキストを検索
     expect(
       screen.getByRole("heading", { name: "テストタイプ", level: 2 }),
     ).toBeInTheDocument();

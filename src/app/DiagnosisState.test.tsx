@@ -166,6 +166,7 @@ describe("DiagnosisState Management", () => {
 
   it("sessionStorage による復帰", () => {
     const initialState: DiagnosisState = {
+      sessionId: "test-session-id",
       status: "in-progress",
       currentQuestionIndex: 5,
       answers: { 1: "a", 2: "b" },

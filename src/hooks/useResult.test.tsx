@@ -4,7 +4,6 @@ import type { DiagnosisData } from "@/app/DiagnosisData";
 import type { DiagnosisState } from "@/app/DiagnosisState";
 import useResult from "@/hooks/useResult";
 
-// Mock the context provider internals to provide specific test data
 vi.mock("@/app/DiagnosisState", async () => {
   const originalModule = await vi.importActual<DiagnosisState>(
     "@/app/DiagnosisState",
@@ -45,7 +44,7 @@ vi.mock("@/app/DiagnosisData", async () => {
 });
 
 describe("useResult Hook", () => {
-  it("should calculate the result type with the highest count", () => {
+  it("結果タイプの選択", () => {
     const { result } = renderHook(() => useResult());
 
     // Expect 'type1' because it has the highest count (2)
@@ -53,7 +52,7 @@ describe("useResult Hook", () => {
     expect(result.current.resultType.displayName).toBe("Type 1");
   });
 
-  it("should calculate match rates correctly", () => {
+  it("一致率の計算", () => {
     const { result } = renderHook(() => useResult());
 
     const type1Rate = result.current.matchRates.find((r) => r.id === "type1");

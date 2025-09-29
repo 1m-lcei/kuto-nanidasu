@@ -8,9 +8,8 @@ function useResult() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: セッションIDで結果をメモ化する
   const result = useMemo(() => {
+    // [questionId]: optionId → [optionId]: count
     const answerCounts = new Map<string, number>();
-
-    // Calculate counts for each typeId based on answers
     for (const question of questions) {
       const answeredOptionId = answers[question.typeAnswers[0].questionId];
       if (answeredOptionId) {

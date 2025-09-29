@@ -9,8 +9,7 @@ function determinesEasterEggDisplay(
   sessionId: string,
   currentQuestionIndex: number,
 ) {
-  // セッションIDとページ番号に応じてメモ化
-  // biome-ignore lint/correctness/useExhaustiveDependencies: 適切
+  // biome-ignore lint/correctness/useExhaustiveDependencies: セッションIDとページ番号でメモ化する
   return useMemo(() => {
     const randomValue = Math.random();
     return {
