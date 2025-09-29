@@ -1,14 +1,13 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { DiagnosisDataProvider, useDiagnosisData } from "@/app/DiagnosisData";
-import { useDiagnosisDispatch, useQuestionState } from "@/app/DiagnosisState";
+import { useDiagnosisDispatch, useDiagnosisState } from "@/app/DiagnosisState";
 import QuestionPage from "@/components/QuestionPage";
 import type { Question } from "@/types/KutoDiagnosisTypes";
 
 vi.mock("@/app/DiagnosisState", () => ({
-  useDiagnosisContext: vi.fn(),
+  useDiagnosisState: vi.fn(),
   useDiagnosisDispatch: vi.fn(),
-  useQuestionState: vi.fn(),
 }));
 
 vi.mock("@/app/DiagnosisData", () => ({
@@ -36,7 +35,8 @@ describe("QuestionPage", () => {
       questions: mockQuestions,
       kutoTypes: {},
     });
-    (useQuestionState as ReturnType<typeof vi.fn>).mockReturnValue({
+    (useDiagnosisState as ReturnType<typeof vi.fn>).mockReturnValue({
+      sessionId: "test-session-id",
       currentQuestionIndex: 0,
       selectedOptionId: null,
     });
@@ -44,7 +44,8 @@ describe("QuestionPage", () => {
   });
 
   it("現在の問題に応じた各要素の表示", () => {
-    (useQuestionState as ReturnType<typeof vi.fn>).mockReturnValue({
+    (useDiagnosisState as ReturnType<typeof vi.fn>).mockReturnValue({
+      sessionId: "test-session-id",
       currentQuestionIndex: 0,
       selectedOptionId: "optionA", // 選択済み状態
     });
@@ -80,7 +81,8 @@ describe("QuestionPage", () => {
   });
 
   it("ボタンの disabled", () => {
-    (useQuestionState as ReturnType<typeof vi.fn>).mockReturnValue({
+    (useDiagnosisState as ReturnType<typeof vi.fn>).mockReturnValue({
+      sessionId: "test-session-id",
       currentQuestionIndex: 0,
       selectedOptionId: null, // 未選択状態
     });
@@ -95,7 +97,8 @@ describe("QuestionPage", () => {
   });
 
   it("SUBMIT_ANSWER の発火", () => {
-    (useQuestionState as ReturnType<typeof vi.fn>).mockReturnValue({
+    (useDiagnosisState as ReturnType<typeof vi.fn>).mockReturnValue({
+      sessionId: "test-session-id",
       currentQuestionIndex: 0,
       selectedOptionId: "optionA", // 選択済み状態
     });

@@ -1,11 +1,13 @@
 import { useDiagnosisData } from "@/app/DiagnosisData";
-import { useDiagnosisDispatch, useQuestionState } from "@/app/DiagnosisState";
+import { useDiagnosisDispatch, useDiagnosisState } from "@/app/DiagnosisState";
 import AnswerOptionItem from "@/components/AnswerOptionItem";
+import EasterEggImage from "@/components/EasterEggImage";
 import Picture from "@/components/Picture";
 
 function QuestionPage() {
   const { questions } = useDiagnosisData();
-  const { currentQuestionIndex, selectedOptionId } = useQuestionState();
+  const { sessionId, currentQuestionIndex, selectedOptionId } =
+    useDiagnosisState();
   const dispatch = useDiagnosisDispatch();
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -74,6 +76,10 @@ function QuestionPage() {
         value={progress}
         max="100"
       ></progress>
+      <EasterEggImage
+        sessionId={sessionId}
+        currentQuestionIndex={currentQuestionIndex}
+      />
     </div>
   );
 }
