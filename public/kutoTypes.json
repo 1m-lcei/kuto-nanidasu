@@ -1,0 +1,44 @@
+{
+  "00": {
+    "displayName": "アリス",
+    "expertName": "（なし）",
+    "expertAccountLink": "",
+    "flavorText": "なりたい存在は自分自身で決める"
+  },
+  "01": {
+    "displayName": "ムツキ",
+    "expertName": "うい",
+    "expertAccountLink": "https://x.com/xiongtaiga31494",
+    "flavorText": "発想豊かでいたずら好きな"
+  },
+  "02": {
+    "displayName": "ミノリ",
+    "expertName": "力うどん",
+    "expertAccountLink": "https://x.com/powerudonpower",
+    "flavorText": "低品質な戦術対抗戦を許すなー！ な"
+  },
+  "03": {
+    "displayName": "ホシノ",
+    "expertName": "ちくわママン",
+    "expertAccountLink": "https://x.com/blauelvogel",
+    "flavorText": "確かな信頼を重視する"
+  },
+  "04": {
+    "displayName": "マリー",
+    "expertName": "ハコイヌ",
+    "expertAccountLink": "https://x.com/hakohund",
+    "flavorText": "理想を追う静かな努力家の"
+  },
+  "05": {
+    "displayName": "ミカ",
+    "expertName": "春",
+    "expertAccountLink": "https://x.com/spring_hope_00",
+    "flavorText": "葛藤を抱えながらも前へと進む"
+  },
+  "06": {
+    "displayName": "リオ",
+    "expertName": "ピスタチオ",
+    "expertAccountLink": "https://x.com/pistachio012345",
+    "flavorText": "あらゆる選択肢から対抗戦を探求する"
+  }
+}

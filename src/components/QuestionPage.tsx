@@ -1,0 +1,81 @@
+import { useDiagnosisData } from "@/app/DiagnosisData";
+import { useDiagnosisDispatch, useQuestionState } from "@/app/DiagnosisState";
+import AnswerOptionItem from "@/components/AnswerOptionItem";
+import Picture from "@/components/Picture";
+
+function QuestionPage() {
+  const { questions } = useDiagnosisData();
+  const { currentQuestionIndex, selectedOptionId } = useQuestionState();
+  const dispatch = useDiagnosisDispatch();
+
+  const currentQuestion = questions[currentQuestionIndex];
+  // currentQuestionがnullの場合はローディング中またはエラー表示
+  if (!currentQuestion) {
+    return <div>質問データを読み込み中...</div>; // または適切なローディング/エラーコンポーネント
+  }
+
+  const questionNumber = currentQuestionIndex + 1;
+  const questionCount = questions.length;
+  const progress =
+    questionCount === 0 ? 0 : (currentQuestionIndex / questions.length) * 100;
+
+  return (
+    <div className="flex flex-col items-center py-4 md:py-8 px-2 gap-4 md:gap-8">
+      <div className="flex flex-col">
+        <h2 className="text-xl md:text-2xl font-bold ml-2 mb-1">
+          {questionNumber}問目
+        </h2>
+        <div className="card card-sm card-border">
+          <div className="card-body">
+            <Picture
+              pathWithoutExtension={`/images/defenses/${questionNumber.toString().padStart(2, "0")}`}
+              sourceExtension="png"
+              alt={`問 ${questionNumber}`}
+            />
+          </div>
+        </div>
+      </div>
+      <p className="text-sm md:text-base">
+        あなたの<span className="font-semibold">考えに最も近い攻撃編成</span>
+        は？
+      </p>
+      <div className="flex flex-col gap-2">
+        {[
+          ...currentQuestion.typeAnswers,
+          {
+            questionId: currentQuestion.typeAnswers[0].questionId,
+            optionId: "none",
+            typeIds: [],
+          },
+        ].map((option) => (
+          <AnswerOptionItem
+            key={option.optionId}
+            option={option}
+            groupName={`question-${questionNumber}`}
+            isSelected={selectedOptionId === option.optionId}
+            onSelect={() =>
+              dispatch({ type: "SELECT_ANSWER", payload: option.optionId })
+            }
+          />
+        ))}
+      </div>
+      <button
+        type="button"
+        className="btn btn-neutral btn-md md:btn-lg"
+        disabled={!selectedOptionId}
+        onClick={() =>
+          dispatch({ type: "SUBMIT_ANSWER", payload: questions.length })
+        }
+      >
+        次へ
+      </button>
+      <progress
+        className="progress w-1/2 progress-info"
+        value={progress}
+        max="100"
+      ></progress>
+    </div>
+  );
+}
+
+export default QuestionPage;

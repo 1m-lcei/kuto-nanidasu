@@ -1,0 +1,102 @@
+[
+  {
+    "typeAnswers": [
+      { "questionId": 1, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 1, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 1, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 1, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 1, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 1, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 2, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 2, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 2, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 2, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 2, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 2, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 3, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 3, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 3, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 3, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 3, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 3, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 4, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 4, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 4, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 4, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 4, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 4, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 5, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 5, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 5, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 5, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 5, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 5, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 6, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 6, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 6, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 6, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 6, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 6, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 7, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 7, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 7, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 7, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 7, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 7, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 8, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 8, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 8, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 8, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 8, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 8, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 9, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 9, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 9, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 9, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 9, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 9, "optionId": "06", "typeIds": ["06"] }
+    ]
+  },
+  {
+    "typeAnswers": [
+      { "questionId": 10, "optionId": "01", "typeIds": ["01"] },
+      { "questionId": 10, "optionId": "02", "typeIds": ["02"] },
+      { "questionId": 10, "optionId": "03", "typeIds": ["03"] },
+      { "questionId": 10, "optionId": "04", "typeIds": ["04"] },
+      { "questionId": 10, "optionId": "05", "typeIds": ["05"] },
+      { "questionId": 10, "optionId": "06", "typeIds": ["06"] }
+    ]
+  }
+]
