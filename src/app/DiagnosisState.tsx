@@ -100,7 +100,7 @@ const diagnosisReducer = (
       Debug.log("SUBMIT_ANSWER");
       const selectedOptionId = state.selectedOptionId;
       if (!selectedOptionId) {
-        // 選択されていない場合は返す。（ただし現状のUIでは、ボタンを disble するため起こらない）
+        // 選択されていない場合は返す。（ただし現状のUIでは、ボタンを disable するため起こらない）
         return state;
       }
 

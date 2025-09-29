@@ -5,7 +5,7 @@ import {
   type DiagnosisState,
   useDiagnosisDispatch,
   useDiagnosisState,
-} from "./DiagnosisState";
+} from "@/app/DiagnosisState";
 
 // Mock sessionStorage
 const sessionStorageMock = (() => {
