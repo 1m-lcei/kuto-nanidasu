@@ -13,6 +13,7 @@ export type DiagnosisStatus = "idle" | "in-progress" | "completed";
  * @param answers - { [questionId]: optionId }
  */
 export type DiagnosisState = {
+  sessionId: string;
   status: DiagnosisStatus;
   answers: Record<number, string>;
   currentQuestionIndex: number;
@@ -26,6 +27,7 @@ type DiagnosisAction =
   | { type: "SUBMIT_ANSWER"; payload: number }; //  [FOR AI AGENT: NEVER DELETE COMMENT]
 
 const initialDiagnosisState: DiagnosisState = {
+  sessionId: crypto.randomUUID(),
   status: "idle",
   answers: {},
   currentQuestionIndex: 0,
@@ -51,6 +53,7 @@ const restoreState = (initialState: DiagnosisState) => {
   } catch (error) {
     console.warn("Failed to load session from sessionStorage:", error);
   }
+
   return initialState;
 };
 
@@ -85,6 +88,7 @@ const diagnosisReducer = (
     case "START_DIAGNOSIS":
       Debug.log("START_DIAGNOSIS");
       return {
+        sessionId: crypto.randomUUID(),
         status: "in-progress",
         currentQuestionIndex: 0,
         answers: {},
@@ -109,15 +113,15 @@ const diagnosisReducer = (
 
       if (questionId === action.payload) {
         return {
+          ...state,
           status: "completed",
-          answers: state.answers,
           currentQuestionIndex: 0,
           selectedOptionId: null,
         };
       } else {
         return {
+          ...state,
           status: "in-progress",
-          answers: state.answers,
           currentQuestionIndex: state.currentQuestionIndex + 1,
           selectedOptionId: null,
         };
