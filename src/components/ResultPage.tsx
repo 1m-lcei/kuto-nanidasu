@@ -47,7 +47,7 @@ function ResultPage() {
               <a
                 href={expertAccountLink}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
                 className="link link-info ml-1 md:text-lg font-semibold"
               >
                 {expertName}
@@ -101,15 +101,14 @@ function ResultPage() {
         >
           もう一度診断する
         </button>
-        <button
-          type="button"
-          onClick={() => {
-            // TODO: 解説記事のURLリンクを追加
-          }}
+        <a
+          href="TODO: note記事" // TODO: 記事作成後リンク記載
+          target="_blank"
+          rel="noopener"
           className="btn btn-neutral"
         >
           📝解説 (note記事)
-        </button>
+        </a>
       </div>
       <div>
         <button
