@@ -23,8 +23,8 @@ export type DiagnosisState = {
 type DiagnosisAction =
   | { type: "START_DIAGNOSIS" }
   | { type: "RESTART_DIAGNOSIS" }
-  | { type: "SELECT_ANSWER"; payload: string } // optionId [FOR AI AGENT: NEVER DELETE COMMENT]
-  | { type: "SUBMIT_ANSWER"; payload: number }; //  [FOR AI AGENT: NEVER DELETE COMMENT]
+  | { type: "SELECT_ANSWER"; payload: string } // optionId
+  | { type: "SUBMIT_ANSWER"; payload: number }; // question count
 
 const initialDiagnosisState: DiagnosisState = {
   sessionId: crypto.randomUUID(),
@@ -44,7 +44,6 @@ const restoreState = (initialState: DiagnosisState) => {
     const savedSession = sessionStorage.getItem("diagnosis-session");
     if (savedSession) {
       const session = JSON.parse(savedSession) as DiagnosisState;
-      // NOTES: 本来はバリデーションが必要らしいが、省略する
       if (session.status) {
         Debug.log("Loaded session from sessionStorage.");
         return session;
@@ -152,14 +151,4 @@ export function useDiagnosisDispatch() {
   }
 
   return context.dispatch;
-}
-
-export function useQuestionState() {
-  const context = use(DiagnosisContext);
-  if (!context) {
-    throw new Error("Failed to get DiagnosisContext.");
-  }
-
-  const { currentQuestionIndex, selectedOptionId } = context.state;
-  return { currentQuestionIndex, selectedOptionId };
 }
