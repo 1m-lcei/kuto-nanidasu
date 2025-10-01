@@ -3,6 +3,7 @@ import { useDiagnosisDispatch } from "@/app/DiagnosisState";
 import ContactModal from "@/components/ContactModal";
 import Logo from "@/components/Logo";
 import useResult from "@/hooks/useResult";
+import Picture from "./Picture";
 
 function ResultPage() {
   const { resultTypeId, resultType, matchRates } = useResult();
@@ -19,14 +20,12 @@ function ResultPage() {
       <Logo />
       <div className="card card-border md:card-side border-0 md:border-1 border-neutral-400">
         <figure>
-          <picture>
-            <source srcSet={`${imageUrl}.avif`} type="image/avif" />
-            <img
-              src={`${imageUrl}.jpg`}
-              alt={`${displayName}タイプ`}
-              className="max-w-[224px] sm:max-w-[256px] md:max-w-[288px] lg:max-w-[320px] mb-4 md:mb-0 rounded-3xl md:rounded-none"
-            />
-          </picture>
+          <Picture
+            pathWithoutExtension={imageUrl}
+            sourceExtension="jpg"
+            alt={displayName}
+            className="max-w-[224px] sm:max-w-[256px] md:max-w-[288px] lg:max-w-[320px] mb-4 md:mb-0 rounded-3xl md:rounded-none"
+          />
         </figure>
         <div className="flex flex-col items-center justify-center p-4 gap-4 md:gap-8 max-h-full">
           <p className="text-sm md:text-base">
