@@ -112,7 +112,7 @@ describe("DiagnosisState Management", () => {
 
     expect(screen.getByTestId("status").textContent).toBe("in-progress");
     expect(screen.getByTestId("current-index").textContent).toBe("1");
-    expect(screen.getByTestId("answers").textContent).toContain('"1":"opt1"');
+    expect(screen.getByTestId("answers").textContent).toContain('"0":"opt1"');
     expect(screen.getByTestId("selected-option").textContent).toBe("");
   });
 

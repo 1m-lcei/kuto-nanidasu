@@ -13,7 +13,7 @@ vi.mock("@/app/DiagnosisState", async () => {
     useDiagnosisState: () => ({
       status: "completed",
       // 'type1' is selected twice, 'type2' once, 'type3' once.
-      answers: { 1: "a", 2: "c", 3: "d", 4: "e" },
+      answers: { 0: "a", 1: "c", 2: "d", 3: "e" },
       currentQuestionIndex: 0,
       selectedOptionId: null,
     }),
@@ -28,16 +28,48 @@ vi.mock("@/app/DiagnosisData", async () => {
     ...originalModule,
     useDiagnosisData: () => ({
       questions: [
-        { typeAnswers: [{ questionId: 1, optionId: "a", typeIds: ["type1"] }] },
-        { typeAnswers: [{ questionId: 2, optionId: "c", typeIds: ["type1"] }] },
-        { typeAnswers: [{ questionId: 3, optionId: "d", typeIds: ["type2"] }] },
-        { typeAnswers: [{ questionId: 4, optionId: "e", typeIds: ["type3"] }] },
+        {
+          description: "Q1",
+          typeAnswers: { a: { typeIds: ["type1"], description: "Desc a" } },
+        },
+        {
+          description: "Q2",
+          typeAnswers: { c: { typeIds: ["type1"], description: "Desc c" } },
+        },
+        {
+          description: "Q3",
+          typeAnswers: { d: { typeIds: ["type2"], description: "Desc d" } },
+        },
+        {
+          description: "Q4",
+          typeAnswers: { e: { typeIds: ["type3"], description: "Desc e" } },
+        },
       ],
       kutoTypes: {
-        type1: { displayName: "Type 1" },
-        type2: { displayName: "Type 2" },
-        type3: { displayName: "Type 3" },
-        "00": { displayName: "Default Type" },
+        type1: {
+          displayName: "Type 1",
+          expertName: "",
+          expertAccountLink: "",
+          flavorText: "",
+        },
+        type2: {
+          displayName: "Type 2",
+          expertName: "",
+          expertAccountLink: "",
+          flavorText: "",
+        },
+        type3: {
+          displayName: "Type 3",
+          expertName: "",
+          expertAccountLink: "",
+          flavorText: "",
+        },
+        "00": {
+          displayName: "Default Type",
+          expertName: "",
+          expertAccountLink: "",
+          flavorText: "",
+        },
       },
     }),
   };

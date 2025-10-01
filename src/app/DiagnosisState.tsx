@@ -107,21 +107,22 @@ const diagnosisReducer = (
         return state;
       }
 
-      const questionId = state.currentQuestionIndex + 1;
-      state.answers[questionId] = selectedOptionId;
+      const i = state.currentQuestionIndex;
+      state.answers[i] = selectedOptionId;
+      const nextIndex = i + 1;
 
-      if (questionId === action.payload) {
+      if (nextIndex < action.payload) {
         return {
           ...state,
-          status: "completed",
-          currentQuestionIndex: 0,
+          status: "in-progress",
+          currentQuestionIndex: nextIndex,
           selectedOptionId: null,
         };
       } else {
         return {
           ...state,
-          status: "in-progress",
-          currentQuestionIndex: state.currentQuestionIndex + 1,
+          status: "completed",
+          currentQuestionIndex: 0,
           selectedOptionId: null,
         };
       }

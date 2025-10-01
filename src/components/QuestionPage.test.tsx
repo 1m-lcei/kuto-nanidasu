@@ -19,10 +19,11 @@ vi.mock("@/app/DiagnosisData", () => ({
 
 describe("QuestionPage", () => {
   const mockQuestion: Question = {
-    typeAnswers: [
-      { questionId: 1, optionId: "optionA", typeIds: ["t1"] },
-      { questionId: 1, optionId: "optionB", typeIds: ["t2"] },
-    ],
+    description: "Test Question 1",
+    typeAnswers: {
+      optionA: { typeIds: ["t1"], description: "Alt Text for Option A" },
+      optionB: { typeIds: ["t2"], description: "Alt Text for Option B" },
+    },
   };
   const mockQuestions: Question[] = [mockQuestion];
   const mockDispatch = vi.fn();
@@ -57,8 +58,8 @@ describe("QuestionPage", () => {
     );
 
     expect(screen.getByText("1問目")).toBeInTheDocument();
-    expect(screen.getByAltText("選択肢 optionA")).toBeInTheDocument();
-    expect(screen.getByAltText("選択肢 optionB")).toBeInTheDocument();
+    screen.getByAltText("Alt Text for Option A");
+    expect(screen.getByAltText("Alt Text for Option B")).toBeInTheDocument();
     const progressBar = screen.getByRole("progressbar");
     expect(progressBar).toHaveAttribute("value", "0"); // currentQuestionIndex が 0 なので 0%
   });
@@ -70,7 +71,7 @@ describe("QuestionPage", () => {
       </DiagnosisDataProvider>,
     );
 
-    const optionALabel = screen.getByAltText("選択肢 optionA");
+    const optionALabel = screen.getByAltText("Alt Text for Option A");
     fireEvent.click(optionALabel);
 
     expect(mockDispatch).toHaveBeenCalledTimes(1);

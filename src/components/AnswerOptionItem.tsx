@@ -2,34 +2,37 @@ import Picture from "@/components/Picture";
 import type { AnswerOption } from "@/types/KutoDiagnosisTypes";
 
 interface AnswerOptionItemProps {
+  id: string;
   option: AnswerOption;
   groupName: string;
+  imgPathWithoutExtension: string;
   isSelected: boolean;
   onSelect: (option: AnswerOption) => void;
 }
 
 function AnswerOptionItem({
+  id,
   option,
   groupName,
+  imgPathWithoutExtension,
   isSelected,
   onSelect,
 }: AnswerOptionItemProps) {
-  const isNone = option.optionId === "none";
+  const isNone = id === "none";
 
   return (
     <label
-      htmlFor={`option-${option.optionId}`}
+      htmlFor={`option-${id}`}
       className={`cursor-pointer p-2 md:p-4 flex items-center gap-2 md:gap-4 rounded-lg
         ring-2 ${isSelected ? "ring-neutral" : "ring-transparent hover:ring-neutral-400"}`}
     >
       <input
-        id={`option-${option.optionId}`}
+        id={`option-${id}`}
         type="radio"
         name={groupName}
         className="radio radio-neutral radio-xs md:radio-md"
         checked={isSelected}
         onChange={() => onSelect(option)}
-        aria-label={`選択肢 ${option.optionId}`}
       />
       {isNone ? (
         <span className="text-sm md:text-base py-2 md:py-4">
@@ -37,9 +40,10 @@ function AnswerOptionItem({
         </span>
       ) : (
         <Picture
-          pathWithoutExtension={`/images/attacks/${option.questionId.toString().padStart(2, "0")}_${option.optionId}`}
+          pathWithoutExtension={imgPathWithoutExtension}
           sourceExtension=".png"
-          alt={`選択肢 ${option.optionId}`}
+          alt={option.description}
+          className="max-w-full object-contain"
         />
       )}
     </label>

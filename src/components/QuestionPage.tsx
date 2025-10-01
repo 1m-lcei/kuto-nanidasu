@@ -3,6 +3,7 @@ import { useDiagnosisDispatch, useDiagnosisState } from "@/app/DiagnosisState";
 import AnswerOptionItem from "@/components/AnswerOptionItem";
 import EasterEggImage from "@/components/EasterEggImage";
 import Picture from "@/components/Picture";
+import type { AnswerOption } from "@/types/KutoDiagnosisTypes";
 
 function QuestionPage() {
   const { questions } = useDiagnosisData();
@@ -32,7 +33,8 @@ function QuestionPage() {
             <Picture
               pathWithoutExtension={`/images/defenses/${questionNumber.toString().padStart(2, "0")}`}
               sourceExtension="png"
-              alt={`問 ${questionNumber}`}
+              alt={currentQuestion.description}
+              className="max-w-full object-contain"
             />
           </div>
         </div>
@@ -43,21 +45,17 @@ function QuestionPage() {
       </p>
       <div className="flex flex-col gap-2">
         {[
-          ...currentQuestion.typeAnswers,
-          {
-            questionId: currentQuestion.typeAnswers[0].questionId,
-            optionId: "none",
-            typeIds: [],
-          },
-        ].map((option) => (
+          ...Object.entries(currentQuestion.typeAnswers),
+          ["none", { typeIds: [], description: "" }] as [string, AnswerOption],
+        ].map(([id, option]) => (
           <AnswerOptionItem
-            key={option.optionId}
+            key={id}
+            id={id}
             option={option}
+            imgPathWithoutExtension={`/images/attacks/${questionNumber.toString().padStart(2, "0")}_${id}`}
             groupName={`question-${questionNumber}`}
-            isSelected={selectedOptionId === option.optionId}
-            onSelect={() =>
-              dispatch({ type: "SELECT_ANSWER", payload: option.optionId })
-            }
+            isSelected={selectedOptionId === id}
+            onSelect={() => dispatch({ type: "SELECT_ANSWER", payload: id })}
           />
         ))}
       </div>

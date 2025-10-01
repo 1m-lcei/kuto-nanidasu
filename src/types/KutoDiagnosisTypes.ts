@@ -6,11 +6,11 @@ export type KutoTypeInfo = {
 };
 
 export type AnswerOption = {
-  questionId: number;
-  optionId: string;
   typeIds: string[];
+  description: string;
 };
 
 export type Question = {
-  typeAnswers: AnswerOption[];
+  description: string;
+  typeAnswers: Record<string, AnswerOption>;
 };

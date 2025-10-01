@@ -8,14 +8,13 @@ function useResult() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: セッションIDで結果をメモ化する
   const result = useMemo(() => {
-    // [questionId]: optionId → [optionId]: count
+    // [question index]: optionId → [optionId]: count
     const answerCounts = new Map<string, number>();
-    for (const question of questions) {
-      const answeredOptionId = answers[question.typeAnswers[0].questionId];
-      if (answeredOptionId) {
-        const answeredOption = question.typeAnswers.find(
-          (opt) => opt.optionId === answeredOptionId,
-        );
+    for (let i = 0; i < questions.length; i++) {
+      const optionId = answers[i];
+      if (optionId) {
+        const cur = questions[i];
+        const answeredOption = cur.typeAnswers[optionId];
         if (answeredOption) {
           for (const typeId of answeredOption.typeIds) {
             answerCounts.set(typeId, (answerCounts.get(typeId) || 0) + 1);
@@ -24,26 +23,32 @@ function useResult() {
       }
     }
 
-    const majorTypesIds = Object.keys(kutoTypes).filter((id) => id !== "00");
+    // 00抜きIDリスト。念のためソート
+    const majorTypesIds = Object.keys(kutoTypes)
+      .filter((id) => id !== "00")
+      .sort();
+    // 00抜きIDのカウント
     const majorTypeCounts = majorTypesIds.map((id) => ({
       id,
       count: answerCounts.get(id) || 0,
     }));
-
-    const totalQuestions = questions.length;
+    // 一致率
+    const questionCount = questions.length;
     const matchRates = majorTypeCounts.map(({ id, count }) => ({
       id,
       kutoType: kutoTypes[id],
-      rate:
-        totalQuestions === 0 ? 0 : Math.round((count / totalQuestions) * 100),
+      rate: questionCount === 0 ? 0 : Math.round((count / questionCount) * 100),
     }));
 
     let resultTypeId = "00";
     if (majorTypeCounts.length > 0) {
-      const maxCount = Math.max(...majorTypeCounts.map((c) => c.count));
-      if (maxCount > 0) {
-        const topTypes = majorTypeCounts.filter((c) => c.count === maxCount);
-        resultTypeId = topTypes.sort((a, b) => a.id.localeCompare(b.id))[0].id;
+      let maxCount = 0;
+      for (const { id, count } of majorTypeCounts) {
+        // maxCount < count のときに更新: 若いID優先
+        if (maxCount < count) {
+          maxCount = count;
+          resultTypeId = id;
+        }
       }
     }
 
