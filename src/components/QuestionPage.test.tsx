@@ -12,10 +12,13 @@ vi.mock("@/app/DiagnosisState", () => ({
 }));
 
 vi.mock("@/app/DiagnosisData", () => ({
-  DiagnosisDataProvider: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  ),
   useDiagnosisData: vi.fn(),
+}));
+
+vi.mock("@/app/DiagnosisDataProvider", () => ({
+  DiagnosisDataProvider: ({ children }: { children: React.ReactNode }) => (
+    <>{children}</>
+  ),
 }));
 
 describe("QuestionPage", () => {
