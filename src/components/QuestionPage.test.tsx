@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { DiagnosisDataProvider, useDiagnosisData } from "@/app/DiagnosisData";
+import { useDiagnosisData } from "@/app/DiagnosisData";
+import { DiagnosisDataProvider } from "@/app/DiagnosisDataProvider";
 import { useDiagnosisDispatch, useDiagnosisState } from "@/app/DiagnosisState";
 import QuestionPage from "@/components/QuestionPage";
 import type { Question } from "@/types/KutoDiagnosisTypes";

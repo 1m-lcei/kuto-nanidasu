@@ -1,125 +1,77 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { DiagnosisDataProvider, useDiagnosisData } from "@/app/DiagnosisData";
+import { act, render, screen } from "@testing-library/react";
+import { Suspense } from "react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import {
+  createDiagnosisDataProvider,
+  type DiagnosisData,
+  useDiagnosisData,
+} from "@/app/DiagnosisData";
 import type { KutoTypeInfo, Question } from "@/types/KutoDiagnosisTypes";
-
-const mockQuestions: Question[] = [
-  {
-    typeAnswers: [
-      { questionId: 1, optionId: "a", typeIds: ["type1"] },
-      { questionId: 1, optionId: "b", typeIds: ["type2"] },
-    ],
-  },
-  {
-    typeAnswers: [
-      { questionId: 2, optionId: "c", typeIds: ["type1"] },
-      { questionId: 2, optionId: "d", typeIds: ["type3"] },
-    ],
-  },
-];
 
 const mockKutoTypes: Record<string, KutoTypeInfo> = {
   type1: {
-    displayName: "タイプ1",
-    expertName: "エキスパート1",
+    displayName: "テストタイプ1",
+    expertName: "専門家1",
     expertAccountLink: "https://example.com/expert1",
-    flavorText: "これはタイプ1です。",
-  },
-  type2: {
-    displayName: "タイプ2",
-    expertName: "エキスパート2",
-    expertAccountLink: "https://example.com/expert2",
-    flavorText: "これはタイプ2です。",
+    flavorText: "これはテストタイプ1です。",
   },
 };
 
-// Test component to consume the context
+const mockQuestions: Question[] = [
+  {
+    description: "質問1です",
+    typeAnswers: {
+      a: { typeIds: ["type1"], description: "回答A" },
+      b: { typeIds: ["type2"], description: "回答B" },
+    },
+  },
+];
+
+const mockDiagnosisData: DiagnosisData = {
+  questions: mockQuestions,
+  kutoTypes: mockKutoTypes,
+};
+
 const TestConsumer = () => {
-  const { questions, kutoTypes } = useDiagnosisData();
-  return (
-    <div>
-      <span>Question ID: {questions[0]?.typeAnswers[0]?.questionId}</span>
-      <span>Kuto Type: {kutoTypes.type1?.displayName}</span>
-    </div>
-  );
+  const data = useDiagnosisData();
+  return <div data-testid="data">{JSON.stringify(data)}</div>;
 };
 
-describe("DiagnosisDataProvider", () => {
-  // vi.spyOn を使うため、ここで mockClear する必要はなくなります。
-  // afterEach の restoreAllMocks でクリーンアップされます。
-  beforeEach(() => {});
-
+describe("DiagnosisData features", () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  it("ローディングの表示", () => {
-    vi.spyOn(globalThis, "fetch").mockReturnValue(new Promise(() => {})); // Never resolves
-    render(
-      <DiagnosisDataProvider>
-        <TestConsumer />
-      </DiagnosisDataProvider>,
-    );
-    expect(screen.getByText("ローディング中...")).toBeInTheDocument();
-  });
+  describe("createDiagnosisDataProvider", () => {
+    it("Promiseが解決された場合、子コンポーネントにデータが渡されること", async () => {
+      const resolvedPromise = Promise.resolve(mockDiagnosisData);
+      const DiagnosisDataProvider =
+        createDiagnosisDataProvider(resolvedPromise);
 
-  it("フェッチ失敗の表示", async () => {
-    vi.spyOn(globalThis, "fetch").mockRejectedValue(
-      new Error("Failed to fetch"),
-    );
-    render(
-      <DiagnosisDataProvider>
-        <TestConsumer />
-      </DiagnosisDataProvider>,
-    );
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          "データの読み込みに失敗しました。時間をおいて再度お試しください。",
-        ),
-      ).toBeInTheDocument();
+      await act(async () => {
+        render(
+          <Suspense fallback={<div>ローディング...</div>}>
+            <DiagnosisDataProvider>
+              <TestConsumer />
+            </DiagnosisDataProvider>
+          </Suspense>,
+        );
+      });
+
+      const dataDiv = await screen.findByTestId("data");
+      expect(dataDiv).toHaveTextContent(JSON.stringify(mockDiagnosisData));
     });
   });
 
-  it("フェッチデータの表示", async () => {
-    vi.spyOn(globalThis, "fetch").mockImplementation((url) => {
-      if (url === "/questions.json") {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(mockQuestions),
-        } as Response);
-      }
-      if (url === "/kutoTypes.json") {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(mockKutoTypes),
-        } as Response);
-      }
-      return Promise.reject(new Error(`Unknown URL: ${url}`));
+  describe("useDiagnosisData", () => {
+    it("Providerの外部で呼び出すとエラーがスローされること", () => {
+      const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+      expect(() => render(<TestConsumer />)).toThrow(
+        "Failed to get DiagnosisDataContext.",
+      );
+
+      errorSpy.mockRestore();
     });
-
-    render(
-      <DiagnosisDataProvider>
-        <TestConsumer />
-      </DiagnosisDataProvider>,
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText("Question ID: 1")).toBeInTheDocument();
-      expect(screen.getByText("Kuto Type: タイプ1")).toBeInTheDocument();
-    });
-  });
-
-  it("DiagnosisDataContext 外での例外", () => {
-    // Suppress console.error for this test because React will log the error
-    const originalError = console.error;
-    console.error = vi.fn();
-
-    expect(() => render(<TestConsumer />)).toThrow(
-      "Failed to get DiagnosisDataContext.",
-    );
-
-    // Restore console.error
-    console.error = originalError;
   });
 });
