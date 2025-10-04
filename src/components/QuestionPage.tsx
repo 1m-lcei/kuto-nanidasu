@@ -12,9 +12,8 @@ function QuestionPage() {
   const dispatch = useDiagnosisDispatch();
 
   const currentQuestion = questions[currentQuestionIndex];
-  // currentQuestionがnullの場合はローディング中またはエラー表示
   if (!currentQuestion) {
-    return <div>質問データを読み込み中...</div>; // または適切なローディング/エラーコンポーネント
+    return;
   }
 
   const questionNumber = currentQuestionIndex + 1;
@@ -43,22 +42,24 @@ function QuestionPage() {
         あなたの<span className="font-semibold">考えに最も近い攻撃編成</span>
         は？
       </p>
-      <div className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-2">
         {[
           ...Object.entries(currentQuestion.typeAnswers),
           ["none", { typeIds: [], description: "" }] as [string, AnswerOption],
         ].map(([id, option]) => (
-          <AnswerOptionItem
-            key={id}
-            id={id}
-            option={option}
-            imgPathWithoutExtension={`/images/attacks/${questionNumber.toString().padStart(2, "0")}_${id}`}
-            groupName={`question-${questionNumber}`}
-            isSelected={selectedOptionId === id}
-            onSelect={() => dispatch({ type: "SELECT_ANSWER", payload: id })}
-          />
+          <li key={id}>
+            <AnswerOptionItem
+              key={id}
+              id={id}
+              option={option}
+              imgPathWithoutExtension={`/images/attacks/${questionNumber.toString().padStart(2, "0")}_${id}`}
+              groupName={`question-${questionNumber}`}
+              isSelected={selectedOptionId === id}
+              onSelect={() => dispatch({ type: "SELECT_ANSWER", payload: id })}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
       <button
         type="button"
         className="btn btn-neutral btn-md md:btn-lg"
