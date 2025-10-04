@@ -21,26 +21,10 @@ function ContactModal({ modalId }: ContactModalProps) {
         </p>
         <h2 className="text-xl border-b border-neutral-300 mb-2">画像</h2>
         <ul className="list-disc list-inside mb-4">
-          <li>
-            <a
-              href="https://bluearchive.jp/fankit"
-              target="_blank"
-              rel="noopener"
-              className="link"
-            >
-              「ブルーアーカイブ」ファンキット
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://x.com/himeno_Q"
-              target="_blank"
-              rel="noopener"
-              className="link"
-            >
-              @himeno_Q
-            </a>
-          </li>
+          <li>「ブルーアーカイブ」ファンキット</li>
+          <li>@himeno_Q</li>
+          <li>OpenMoji (CC-BY-SA-4.0)</li>
+          <li>SVG Logos (CC0 1.0 Universal)</li>
         </ul>
         <div className="divider" />
         <p>🎨 本Webサイトは、「ブルーアーカイブ」非公式二次創作です。</p>
