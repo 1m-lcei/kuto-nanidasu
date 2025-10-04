@@ -4,6 +4,7 @@ import AnswerOptionItem from "@/components/AnswerOptionItem";
 import EasterEggImage from "@/components/EasterEggImage";
 import Picture from "@/components/Picture";
 import type { AnswerOption } from "@/types/KutoDiagnosisTypes";
+import { DaggerIcon, ShieldIcon } from "./SvgIcons";
 
 function QuestionPage() {
   const { questions } = useDiagnosisData();
@@ -22,11 +23,14 @@ function QuestionPage() {
     questionCount === 0 ? 0 : (currentQuestionIndex / questions.length) * 100;
 
   return (
-    <div className="flex flex-col items-center py-4 md:py-8 px-2 gap-4 md:gap-8">
-      <div className="flex flex-col">
-        <h2 className="text-xl md:text-2xl font-bold ml-2 mb-1">
-          {questionNumber}問目
-        </h2>
+    <div className="flex flex-col items-center py-4 md:py-8 px-2 gap-2 md:gap-4">
+      <div className="flex flex-col mb-2">
+        <div className="flex items-end mb-1">
+          <ShieldIcon className="w-7 md:w-8 h-7 md:h-8" />
+          <h2 className="text-xl md:text-2xl font-bold">
+            {questionNumber}問目
+          </h2>
+        </div>
         <div className="card card-sm card-border">
           <div className="card-body">
             <Picture
@@ -38,10 +42,13 @@ function QuestionPage() {
           </div>
         </div>
       </div>
-      <p className="text-sm md:text-base">
-        あなたの<span className="font-semibold">考えに最も近い攻撃編成</span>
-        は？
-      </p>
+      <div className="flex items-center md:items-end">
+        <DaggerIcon className="w-6 md:w-8 h-6 md:h-8 rotate-180" />
+        <h3 className="text-base md:text-lg font-bold">何出す？</h3>
+        <p className="text-sm md:text-base">
+          （<span className="font-semibold">考えに近い</span>編成）
+        </p>
+      </div>
       <ul className="flex flex-col gap-2">
         {[
           ...Object.entries(currentQuestion.typeAnswers),

@@ -1,5 +1,7 @@
 import type { SVGProps } from "react";
 
+// SVG Logos
+// CC0 1.0 Universal
 export function GithubIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 256" {...props}>
@@ -12,11 +14,82 @@ export function GithubIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+// SVG Logos
+// CC0 1.0 Universal
 export function XIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 251" {...props}>
       <title>𝕏</title>
       <path d="M149.079 108.399L242.33 0h-22.098l-80.97 94.12L74.59 0H0l97.796 142.328L0 256h22.1l85.507-99.395L175.905 256h74.59L149.073 108.399zM118.81 143.58l-9.909-14.172l-78.84-112.773h33.943l63.625 91.011l9.909 14.173l82.705 118.3H186.3l-67.49-96.533z"></path>
+    </svg>
+  );
+}
+
+// OpenMoji
+// CC-BY-SA-4.0
+export function ShieldIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" {...props}>
+      <title>防衛</title>
+      <path
+        fill="#D0CFCE"
+        d="M35.99 10.906c-11.046 0-20 4.478-20 10l.026.275C18.967 51.711 34.69 60.25 35.914 60.87l.076.037s17-8 20-40c.515-5.498-8.954-10-20-10m.002 43.978l-.06-.03c-.978-.496-13.543-7.318-15.901-31.714l-.021-.22c0-4.413 7.155-7.99 15.982-7.99s16.394 3.596 15.982 7.99c-2.397 25.571-15.982 31.964-15.982 31.964"
+      ></path>
+      <path
+        fill="#23c2f9"
+        d="m35 17.906l3 4l-3 4l3 4l-3 4l3 4l-3 4l3 4l-3 4l1 5.26s-15-11-16-32c0 0 0-8 16-8z"
+      ></path>
+      <path
+        fill="#1fb2f1"
+        d="m36 15.166l-1 2.74l3 4l-3 4l3 4l-3 4l3 4l-3 4l3 4l-3 4l1.002 4.978s13.844-8.958 15.982-31.964c0 0-.834-6.97-15.984-7.754"
+      ></path>
+      <g
+        fill="none"
+        stroke="#000"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeMiterlimit="10"
+        strokeWidth="2"
+      >
+        <path d="M35.925 60.87c-1.225-.622-16.947-9.16-19.899-39.69L16 20.906c0-5.522 8.954-10 20-10s20.516 4.502 20 10c-3 32-20 40-20 40z"></path>
+        <path d="M35.942 54.854c-.978-.496-13.543-7.318-15.9-31.714l-.022-.22c0-4.413 7.155-7.991 15.982-7.991s16.394 3.597 15.982 7.991c-2.397 25.571-15.982 31.964-15.982 31.964z"></path>
+      </g>
+    </svg>
+  );
+}
+
+// OpenMoji
+// CC-BY-SA-4.0
+export function DaggerIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" {...props}>
+      <title>攻撃</title>
+      <path
+        fill="#37597a"
+        d="m43.908 30.51l-2.73-2.73a1 1 0 0 1-.05-1.36l9.996-11.602a4.054 4.054 0 1 1 5.785 5.682L45.27 30.559a1 1 0 0 1-1.36-.05"
+      ></path>
+      <path
+        fill="#9b9b9a"
+        d="M50.916 35.782a3 3 0 0 0-2.739-.81a24.3 24.3 0 0 0-11.489-11.428a2.998 2.998 0 1 0-2.285 2.262c2.338 1.006 8.678 4.328 11.468 11.455a2.997 2.997 0 1 0 5.045-1.48Z"
+      ></path>
+      <path
+        fill="#d0cfce"
+        d="M37.636 27.539L18.304 46.87a1 1 0 0 0-.138.172c-3.504 5.536-4.678 8.946-3.489 10.135c.439.438 1.603 1.602 9.953-3.67a1 1 0 0 0 .173-.138L44.19 33.985a21.6 21.6 0 0 0-6.553-6.446"
+      ></path>
+      <path
+        fill="#9b9b9a"
+        d="M14.677 57.178c.439.438 1.603 1.602 9.953-3.67a1 1 0 0 0 .173-.138L44.19 33.985a20.3 20.3 0 0 0-2.926-3.574Z"
+      ></path>
+      <g
+        fill="none"
+        stroke="#23c2f9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      >
+        <path d="M38.806 27.783L19.01 47.578s-4.853 7.666-3.626 8.893c1.037 1.037 8.711-3.808 8.711-3.808l19.711-19.711"></path>
+        <path d="M35.772 22.88a2 2 0 1 0-2.563 1.919l.026.007c.57.192 10.292 3.597 13.636 13.644l.004.015a2 2 0 1 0 1.697-2.55m-5.645-10.074l8.955-10.369a3.064 3.064 0 0 1 4.32 0h0a3.064 3.064 0 0 1 0 4.32l-10.369 8.955"></path>
+      </g>
     </svg>
   );
 }
