@@ -41,7 +41,7 @@ function AnswerOptionItem({
       ) : (
         <Picture
           pathWithoutExtension={imgPathWithoutExtension}
-          sourceExtension=".png"
+          sourceExtension="png"
           alt={option.description}
           className="max-w-full object-contain"
         />

@@ -1,9 +1,11 @@
 type PictureProps = {
   pathWithoutExtension: string;
-  sourceExtension: string;
+  sourceExtension: SourceExtensions;
   alt: string;
   className: string;
 };
+
+export type SourceExtensions = "png" | "jpg";
 
 function Picture({
   pathWithoutExtension,
