@@ -7,7 +7,7 @@ interface AnswerOptionItemProps {
   groupName: string;
   imgPathWithoutExtension: string;
   isSelected: boolean;
-  onSelect: (option: AnswerOption) => void;
+  onSelect: (option: string) => void;
 }
 
 function AnswerOptionItem({
@@ -19,6 +19,7 @@ function AnswerOptionItem({
   onSelect,
 }: AnswerOptionItemProps) {
   const isNone = id === "none";
+  const handleOnChange = () => onSelect(id);
 
   return (
     <label
@@ -32,7 +33,7 @@ function AnswerOptionItem({
         name={groupName}
         className="radio radio-neutral radio-xs md:radio-md"
         checked={isSelected}
-        onChange={() => onSelect(option)}
+        onChange={handleOnChange}
       />
       {isNone ? (
         <span className="text-sm md:text-base py-2 md:py-4">

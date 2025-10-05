@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { useDiagnosisData } from "@/app/DiagnosisData";
 import { useDiagnosisDispatch, useDiagnosisState } from "@/app/DiagnosisState";
 import AnswerOptionItem from "@/components/AnswerOptionItem";
@@ -12,6 +13,11 @@ function QuestionPage() {
     useDiagnosisState();
   const dispatch = useDiagnosisDispatch();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 必要
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentQuestionIndex]);
+
   const currentQuestion = questions[currentQuestionIndex];
   if (!currentQuestion) {
     return;
@@ -21,6 +27,14 @@ function QuestionPage() {
   const questionCount = questions.length;
   const progress =
     questionCount === 0 ? 0 : (currentQuestionIndex / questions.length) * 100;
+
+  const handleOnSelect = (id: string) => {
+    dispatch({ type: "SELECT_ANSWER", payload: id });
+  };
+
+  const handleOnClick = () => {
+    dispatch({ type: "SUBMIT_ANSWER", payload: questions.length });
+  };
 
   return (
     <div className="flex flex-col items-center py-4 md:py-8 px-2 gap-2 md:gap-4">
@@ -62,7 +76,7 @@ function QuestionPage() {
               imgPathWithoutExtension={`/images/attacks/${questionNumber.toString().padStart(2, "0")}_${id}`}
               groupName={`question-${questionNumber}`}
               isSelected={selectedOptionId === id}
-              onSelect={() => dispatch({ type: "SELECT_ANSWER", payload: id })}
+              onSelect={handleOnSelect}
             />
           </li>
         ))}
@@ -71,9 +85,7 @@ function QuestionPage() {
         type="button"
         className="btn btn-neutral btn-md md:btn-lg"
         disabled={!selectedOptionId}
-        onClick={() =>
-          dispatch({ type: "SUBMIT_ANSWER", payload: questions.length })
-        }
+        onClick={handleOnClick}
       >
         次へ
       </button>
