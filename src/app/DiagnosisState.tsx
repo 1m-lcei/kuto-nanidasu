@@ -5,7 +5,6 @@ import {
   useEffect,
   useReducer,
 } from "react";
-import Debug from "@/hooks/useDebug";
 
 export type DiagnosisStatus = "idle" | "in-progress" | "completed";
 
@@ -45,7 +44,6 @@ const restoreState = (initialState: DiagnosisState) => {
     if (savedSession) {
       const session = JSON.parse(savedSession) as DiagnosisState;
       if (session.status) {
-        Debug.log("Loaded session from sessionStorage.");
         return session;
       }
     }
@@ -85,7 +83,6 @@ const diagnosisReducer = (
 ): DiagnosisState => {
   switch (action.type) {
     case "START_DIAGNOSIS":
-      Debug.log("START_DIAGNOSIS");
       return {
         sessionId: crypto.randomUUID(),
         status: "in-progress",
@@ -94,13 +91,11 @@ const diagnosisReducer = (
         selectedOptionId: null,
       };
     case "SELECT_ANSWER":
-      Debug.log("SELECT_ANSWER");
       return {
         ...state,
         selectedOptionId: action.payload,
       };
     case "SUBMIT_ANSWER": {
-      Debug.log("SUBMIT_ANSWER");
       const selectedOptionId = state.selectedOptionId;
       if (!selectedOptionId) {
         // 選択されていない場合は返す。（ただし現状のUIでは、ボタンを disable するため起こらない）
@@ -128,7 +123,6 @@ const diagnosisReducer = (
       }
     }
     case "RESTART_DIAGNOSIS":
-      Debug.log("RESTART_DIAGNOSIS");
       sessionStorage.removeItem("diagnosis-session");
       return initialDiagnosisState;
     default:
