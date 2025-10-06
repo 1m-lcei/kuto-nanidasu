@@ -3,11 +3,18 @@ import { useDiagnosisDispatch } from "@/app/DiagnosisState";
 import ContactModal from "@/components/ContactModal";
 import Logo from "@/components/Logo";
 import useResult from "@/hooks/useResult";
+import { useShare } from "@/hooks/useShare";
 import Picture from "./Picture";
 
 function ResultPage() {
   const { resultTypeId, resultType, matchRates } = useResult();
   const dispatch = useDiagnosisDispatch();
+  const { share } = useShare(
+    resultType,
+    resultTypeId === "00"
+      ? 100 // "00"の場合は、さしあたり100%にしておく
+      : (matchRates.find((x) => x.id === resultTypeId)?.rate ?? 0),
+  );
 
   const { displayName, flavorText, expertName, expertAccountLink } = resultType;
   const imageUrl = `images/icons/${resultTypeId}`;
@@ -94,7 +101,7 @@ function ResultPage() {
             </label>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 mb-1">
           <button
             type="button"
             onClick={() => dispatch({ type: "RESTART_DIAGNOSIS" })}
@@ -111,19 +118,18 @@ function ResultPage() {
             📝解説 (note記事)
           </a>
         </div>
-        <div>
-          <button
-            type="button"
-            className="btn btn-link"
-            onClick={() =>
-              (
-                document.getElementById(modalId) as HTMLDialogElement
-              ).showModal()
-            }
-          >
-            連絡先・使用画像
-          </button>
-        </div>
+        <button type="button" onClick={share} className="btn btn-link">
+          結果をシェアする
+        </button>
+        <button
+          type="button"
+          className="link link-hover text-sm"
+          onClick={() =>
+            (document.getElementById(modalId) as HTMLDialogElement).showModal()
+          }
+        >
+          連絡先・使用画像
+        </button>
       </div>
       <ContactModal modalId={modalId} />
     </>

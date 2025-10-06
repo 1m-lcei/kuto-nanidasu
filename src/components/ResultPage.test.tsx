@@ -6,6 +6,7 @@ import {
   type DiagnosisData,
 } from "@/app/DiagnosisData";
 import { useDiagnosisDispatch, useDiagnosisState } from "@/app/DiagnosisState";
+import * as useShare from "@/hooks/useShare";
 import type { KutoTypeInfo, Question } from "@/types/KutoDiagnosisTypes";
 import ResultPage from "./ResultPage";
 
@@ -19,6 +20,9 @@ vi.mock("@/app/DiagnosisState", async (importOriginal) => {
     useDiagnosisDispatch: vi.fn(),
   };
 });
+
+// useShareフックをモック化
+vi.mock("@/hooks/useShare");
 
 // --- 型定義に準拠したモックデータ --- //
 const mockKutoTypes: Record<string, KutoTypeInfo> = {
@@ -61,6 +65,7 @@ const TestDiagnosisDataProvider = createDiagnosisDataProvider(resolvedPromise);
 
 describe("ResultPage", () => {
   const mockDispatch = vi.fn();
+  const shareMock = vi.fn();
 
   beforeEach(() => {
     vi.mocked(useDiagnosisDispatch).mockReturnValue(mockDispatch);
@@ -71,11 +76,14 @@ describe("ResultPage", () => {
       currentQuestionIndex: 0, // statusが'completed'の時は0
       selectedOptionId: null,
     });
+    // すべてのテストでuseShareの基本的なモックを提供
+    vi.mocked(useShare.useShare).mockReturnValue({ share: shareMock });
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
     mockDispatch.mockClear();
+    shareMock.mockClear();
   });
 
   // `act`でラップしたrender関数
@@ -94,7 +102,6 @@ describe("ResultPage", () => {
   it("最多得票タイプの情報が正しく表示されること", async () => {
     await renderComponent();
 
-    // actで更新が完了しているので、getByで同期的に要素を取得できる
     expect(
       screen.getByRole("heading", { name: "テストタイプ1", level: 2 }),
     ).toBeInTheDocument();
@@ -131,5 +138,22 @@ describe("ResultPage", () => {
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "RESTART_DIAGNOSIS" });
     expect(mockDispatch).toHaveBeenCalledTimes(1);
+  });
+
+  it("シェアボタンが表示され、クリック時にshare関数が呼ばれること", async () => {
+    await renderComponent();
+
+    const shareButton = screen.getByRole("button", {
+      name: /結果をシェアする/i,
+    });
+    expect(shareButton).toBeInTheDocument();
+
+    fireEvent.click(shareButton);
+
+    expect(vi.mocked(useShare.useShare)).toHaveBeenCalledWith(
+      expect.objectContaining({ displayName: "テストタイプ1" }), // resultType
+      67, // topRate
+    );
+    expect(shareMock).toHaveBeenCalledTimes(1);
   });
 });
