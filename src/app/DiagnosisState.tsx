@@ -122,7 +122,11 @@ const diagnosisReducer = (
     }
     case "RESTART_DIAGNOSIS":
       sessionStorage.removeItem("diagnosis-session");
-      return initialDiagnosisState;
+      // UI flickering するので answers を保ったまま返す
+      return {
+        ...state,
+        status: "idle",
+      };
     default:
       return state;
   }
