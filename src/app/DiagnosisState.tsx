@@ -70,9 +70,7 @@ export const DiagnosisProvider = ({ children }: { children: ReactNode }) => {
   }, [state]);
 
   return (
-    <DiagnosisContext.Provider value={{ state, dispatch }}>
-      {children}
-    </DiagnosisContext.Provider>
+    <DiagnosisContext value={{ state, dispatch }}>{children}</DiagnosisContext>
   );
 };
 

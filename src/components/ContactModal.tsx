@@ -7,8 +7,10 @@ type ContactModalProps = {
 function ContactModal({ modalId }: ContactModalProps) {
   return (
     <dialog id={modalId} className="modal">
-      <div className="modal-box text-left">
-        <h2 className="text-xl border-b border-neutral-300 mb-2">連絡先</h2>
+      <div className="modal-box text-left text-sm md:text-base">
+        <h2 className="text-lg md:text-xl border-b border-neutral-300 mb-3">
+          連絡先
+        </h2>
         <p className="mb-4">
           <a
             href="https://x.com/1m_lcei"
@@ -19,7 +21,9 @@ function ContactModal({ modalId }: ContactModalProps) {
             @1m_lcei
           </a>
         </p>
-        <h2 className="text-xl border-b border-neutral-300 mb-2">画像</h2>
+        <h2 className="text-lg md:text-xl border-b border-neutral-300 mb-3">
+          画像
+        </h2>
         <ul className="list-disc list-inside mb-4">
           <li>「ブルーアーカイブ」ファンキット</li>
           <li>@himeno_Q</li>

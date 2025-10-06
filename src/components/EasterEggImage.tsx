@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import Picture from "./Picture";
 
 type EasterEggImageProps = {
   sessionId: string;
@@ -32,21 +33,17 @@ function EasterEggImage({
     return null;
   }
 
-  const imageSrc = "images/easteregg";
-
   return (
-    <div className="fixed bottom-4 left-0 -z-10 pointer-events-none mix-blend-multiply opacity-30 w-1/6">
-      <picture>
-        <source srcSet={`${imageSrc}.avif`} type="image/avif" />
-        <img
-          src={`${imageSrc}.png`}
-          alt="Easter Egg"
-          className={
-            isRotated ? "origin-bottom-right rotate-90 -translate-x-1/2" : ""
-          }
-        />
-      </picture>
-    </div>
+    <Picture
+      pathWithoutExtension="images/easteregg"
+      sourceExtension="png"
+      alt="Easter Egg"
+      className={
+        isRotated
+          ? "fixed bottom-4 left-4 -z-10 pointer-events-none mix-blend-multiply opacity-20 w-[min(16.6667vw,16.6667vh)] origin-bottom-right rotate-90 -translate-x-11/12"
+          : "fixed bottom-4 left-4 -z-10 pointer-events-none mix-blend-multiply opacity-20 w-[min(16.6667vw,16.6667vh)]"
+      }
+    />
   );
 }
 

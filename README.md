@@ -4,9 +4,9 @@
 
 This is the repository for a web application that provides the "Type Diagnosis" feature from Tactical Challenge (PvP).
 
-You can try the Type Diagnosis at the following link:
+You can try it out at:
 
-**URL**
+https://1m-lcei.github.io/kuto-nanidasu/
 
 
 ## `kuto-nanidasu`?
