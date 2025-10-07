@@ -7,20 +7,26 @@ import { useShare } from "@/hooks/useShare";
 import Picture from "./Picture";
 
 function ResultPage() {
-  const { resultTypeId, resultType, matchRates } = useResult();
+  const { resultTypeId, resultType, resultMatchRate, matchRates } = useResult();
   const dispatch = useDiagnosisDispatch();
-  const { share } = useShare(
-    resultType,
-    resultTypeId === "00"
-      ? 100 // "00"の場合は、さしあたり100%にしておく
-      : (matchRates.find((x) => x.id === resultTypeId)?.rate ?? 0),
-  );
+  const { share } = useShare(resultType, resultMatchRate);
 
   const { displayName, flavorText, expertName, expertAccountLink } = resultType;
-  const imageUrl = `images/icons/${resultTypeId}`;
 
   const modalId = useId();
   const [showExpertName, setShowExpertName] = useState(false);
+
+  const handleOnChangeExpertNameShown = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setShowExpertName(e.target.checked);
+  };
+  const handleOnClickRestart = () => {
+    dispatch({ type: "RESTART_DIAGNOSIS" });
+  };
+  const handleOnClickToShowContactModal = () => {
+    (document.getElementById(modalId) as HTMLDialogElement).showModal();
+  };
 
   return (
     <>
@@ -29,7 +35,7 @@ function ResultPage() {
         <div className="card md:card-border md:card-side md:border-1 md:border-neutral-400 md-2 md:md-0">
           <figure>
             <Picture
-              pathWithoutExtension={imageUrl}
+              pathWithoutExtension={`images/icons/${resultTypeId}`}
               sourceExtension="jpg"
               alt={displayName}
               className="max-w-[224px] sm:max-w-[256px] md:max-w-[288px] lg:max-w-[320px] mb-4 md:mb-0 rounded-2xl md:rounded-none"
@@ -68,25 +74,27 @@ function ResultPage() {
         <h3 className="hidden">一致率</h3>
         <div className="w-full max-w-md md:max-w-3xl mb-4">
           <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 md:gap-x-4 md:gap-y-2">
-            {matchRates.map((rate) => (
-              <li
-                key={rate.id}
-                className="w-full p-2 box-border border border-neutral-400 text-xs md:text-base flex justify-between items-center"
-              >
-                <span>
-                  {showExpertName
-                    ? rate.kutoType.expertName
-                    : rate.kutoType.displayName}
-                </span>
-                <span className="flex items-baseline gap-0.5 text-xs md:text-sm">
-                  <span className="text-neutral-400">一致率:</span>
-                  <span className="inline-block w-[3ch] text-right text-sm md:text-base">
-                    {rate.rate}
+            {Array.from(matchRates.entries()).map(
+              ([id, { kutoType, rate }]) => (
+                <li
+                  key={id}
+                  className="w-full p-2 box-border border border-neutral-400 text-xs md:text-base flex justify-between items-center"
+                >
+                  <span>
+                    {showExpertName
+                      ? kutoType.expertName
+                      : kutoType.displayName}
                   </span>
-                  %
-                </span>
-              </li>
-            ))}
+                  <span className="flex items-baseline gap-0.5 text-xs md:text-sm">
+                    <span className="text-neutral-400">一致率:</span>
+                    <span className="inline-block w-[3ch] text-right text-sm md:text-base">
+                      {rate}
+                    </span>
+                    %
+                  </span>
+                </li>
+              ),
+            )}
           </ul>
           <div className="flex justify-end pt-2">
             <label className="label text-xs md:text-sm">
@@ -94,7 +102,7 @@ function ResultPage() {
                 type="checkbox"
                 name="showExpertNameToggle"
                 checked={showExpertName}
-                onChange={(e) => setShowExpertName(e.target.checked)}
+                onChange={handleOnChangeExpertNameShown}
                 className="toggle toggle-sm md:toggle-md"
               />
               診断モデルの先生名を表示
@@ -104,7 +112,7 @@ function ResultPage() {
         <div className="flex gap-4 mb-1">
           <button
             type="button"
-            onClick={() => dispatch({ type: "RESTART_DIAGNOSIS" })}
+            onClick={handleOnClickRestart}
             className="btn btn-neutral"
           >
             もう一度診断する
@@ -124,9 +132,7 @@ function ResultPage() {
         <button
           type="button"
           className="link link-hover text-sm"
-          onClick={() =>
-            (document.getElementById(modalId) as HTMLDialogElement).showModal()
-          }
+          onClick={handleOnClickToShowContactModal}
         >
           連絡先・使用画像
         </button>

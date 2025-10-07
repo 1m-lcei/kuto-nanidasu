@@ -101,13 +101,14 @@ const diagnosisReducer = (
       }
 
       const i = state.currentQuestionIndex;
-      state.answers[i] = selectedOptionId;
+      const newAnswers = { ...state.answers, [i]: selectedOptionId };
       const nextIndex = i + 1;
 
       if (nextIndex < action.payload) {
         return {
           ...state,
           status: "in-progress",
+          answers: newAnswers,
           currentQuestionIndex: nextIndex,
           selectedOptionId: null,
         };
@@ -115,6 +116,7 @@ const diagnosisReducer = (
         return {
           ...state,
           status: "completed",
+          answers: newAnswers,
           currentQuestionIndex: 0,
           selectedOptionId: null,
         };

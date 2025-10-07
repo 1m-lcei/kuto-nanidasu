@@ -1,33 +1,28 @@
 import { useMemo } from "react";
-import Picture from "./Picture";
+import Picture from "@/components/Picture";
 
 type EasterEggImageProps = {
   sessionId: string;
   currentQuestionIndex: number;
 };
 
-function determinesEasterEggDisplay(
-  sessionId: string,
-  currentQuestionIndex: number,
-) {
-  // biome-ignore lint/correctness/useExhaustiveDependencies: セッションIDとページ番号でメモ化する
-  return useMemo(() => {
-    const randomValue = Math.random();
-    return {
-      isShown: randomValue < 0.05,
-      isRotated: randomValue < 0.01,
-    };
-  }, [sessionId, currentQuestionIndex]);
+function determinesEasterEggDisplay() {
+  const randomValue = Math.random();
+  return {
+    isShown: randomValue < 0.05,
+    isRotated: randomValue < 0.01,
+  };
 }
 
 function EasterEggImage({
   sessionId,
   currentQuestionIndex,
 }: EasterEggImageProps) {
-  const { isShown, isRotated } = determinesEasterEggDisplay(
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 同一のセッションIDかつ質問番号の場合に結果を保存
+  const { isShown, isRotated } = useMemo(determinesEasterEggDisplay, [
     sessionId,
     currentQuestionIndex,
-  );
+  ]);
 
   if (!isShown) {
     return null;

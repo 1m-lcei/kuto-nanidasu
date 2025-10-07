@@ -87,15 +87,15 @@ describe("useResult Hook", () => {
   it("一致率の計算", () => {
     const { result } = renderHook(() => useResult());
 
-    const type1Rate = result.current.matchRates.find((r) => r.id === "type1");
-    const type2Rate = result.current.matchRates.find((r) => r.id === "type2");
-    const type3Rate = result.current.matchRates.find((r) => r.id === "type3");
+    const type1Data = result.current.matchRates.get("type1");
+    const type2Data = result.current.matchRates.get("type2");
+    const type3Data = result.current.matchRates.get("type3");
 
     // 2 out of 4 questions -> 50%
-    expect(type1Rate?.rate).toBe(50);
+    expect(type1Data?.rate).toBe(50);
     // 1 out of 4 questions -> 25%
-    expect(type2Rate?.rate).toBe(25);
+    expect(type2Data?.rate).toBe(25);
     // 1 out of 4 questions -> 25%
-    expect(type3Rate?.rate).toBe(25);
+    expect(type3Data?.rate).toBe(25);
   });
 });
