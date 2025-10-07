@@ -18,6 +18,7 @@ function Picture({
       <source srcSet={`${pathWithoutExtension}.avif`} type="image/avif" />
       <img
         src={`${pathWithoutExtension}.${sourceExtension}`}
+        loading="lazy"
         alt={alt}
         className={className}
       />
