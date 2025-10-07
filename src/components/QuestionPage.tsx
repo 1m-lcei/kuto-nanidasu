@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useMemo } from "react";
 import { useDiagnosisData } from "@/app/DiagnosisData";
 import { useDiagnosisDispatch, useDiagnosisState } from "@/app/DiagnosisState";
 import AnswerOptionItem from "@/components/AnswerOptionItem";
@@ -19,8 +19,21 @@ function QuestionPage() {
   }, [currentQuestionIndex]);
 
   const currentQuestion = questions[currentQuestionIndex];
+  const shuffledOptions = useMemo(() => {
+    if (!currentQuestion) {
+      return [];
+    }
+    const options = Object.entries(currentQuestion.typeAnswers);
+    // Fisher-Yates Method
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    return options;
+  }, [currentQuestion]);
+
   if (!currentQuestion) {
-    return;
+    return null;
   }
 
   const questionNumber = currentQuestionIndex + 1;
@@ -65,10 +78,13 @@ function QuestionPage() {
             （<span className="font-semibold">考えに近い</span>編成）
           </p>
         </div>
-        <form onSubmit={handleOnSubmit} className="flex flex-col items-center">
+        <form
+          onSubmit={handleOnSubmit}
+          className="flex flex-col items-center gap-2"
+        >
           <ul className="flex flex-col gap-2">
             {[
-              ...Object.entries(currentQuestion.typeAnswers),
+              ...shuffledOptions,
               ["none", { typeIds: [], description: "" }] as [
                 string,
                 AnswerOption,
