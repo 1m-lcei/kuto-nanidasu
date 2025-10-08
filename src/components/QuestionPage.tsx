@@ -5,6 +5,7 @@ import AnswerOptionItem from "@/components/AnswerOptionItem";
 import EasterEggImage from "@/components/EasterEggImage";
 import Picture from "@/components/Picture";
 import type { AnswerOption } from "@/types/KutoDiagnosisTypes";
+import { shuffle } from "@/utils/shuffle";
 import { DaggerIcon, ShieldIcon } from "./SvgIcons";
 
 function QuestionPage() {
@@ -24,11 +25,7 @@ function QuestionPage() {
       return [];
     }
     const options = Object.entries(currentQuestion.typeAnswers);
-    // Fisher-Yates Method
-    for (let i = options.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [options[i], options[j]] = [options[j], options[i]];
-    }
+    shuffle(options);
     return options;
   }, [currentQuestion]);
 
