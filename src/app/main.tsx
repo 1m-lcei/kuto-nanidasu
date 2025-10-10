@@ -10,7 +10,7 @@ import { DiagnosisProvider } from "@/app/DiagnosisState";
 const root = document.getElementById("root") as ReactDOM.Container;
 
 ReactDOM.createRoot(root).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/kuto-nanidasu">
     <ErrorBoundary
       fallback={
         <div className="p-4 text-center">

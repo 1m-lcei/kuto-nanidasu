@@ -60,7 +60,7 @@ function QuestionPage() {
           <div className="card card-xs md:card-sm card-border">
             <div className="card-body">
               <Picture
-                pathWithoutExtension={`/images/defenses/${questionNumber.toString().padStart(2, "0")}`}
+                pathWithoutExtension={`images/defenses/${questionNumber.toString().padStart(2, "0")}`}
                 sourceExtension="png"
                 alt={currentQuestion.description}
                 className="max-w-full object-contain"
@@ -96,7 +96,7 @@ function QuestionPage() {
                   key={id}
                   id={id}
                   option={option}
-                  imgPathWithoutExtension={`/images/attacks/${questionNumber.toString().padStart(2, "0")}_${id}`}
+                  imgPathWithoutExtension={`images/attacks/${questionNumber.toString().padStart(2, "0")}_${id}`}
                   groupName={`question-${questionNumber}`}
                   isSelected={selectedOptionId === id}
                   onSelect={handleOnSelect}
