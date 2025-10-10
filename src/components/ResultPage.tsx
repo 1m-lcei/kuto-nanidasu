@@ -118,7 +118,7 @@ function ResultPage() {
             もう一度診断する
           </button>
           <a
-            href="TODO: note記事" // TODO: 記事作成後リンク記載
+            href="https://note.com/1m_lcei/n/n17eafb434e54"
             target="_blank"
             rel="noopener"
             className="btn btn-neutral"
