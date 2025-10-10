@@ -30,6 +30,10 @@ function ContactModal({ modalId }: ContactModalProps) {
           <li>OpenMoji (CC-BY-SA-4.0)</li>
           <li>SVG Logos (CC0 1.0 Universal)</li>
         </ul>
+        <h2 className="text-lg md:text-xl border-b border-neutral-300 mb-3">
+          スペシャルサンクス
+        </h2>
+        <p className="mb-4">@hakohund</p>
         <div className="divider" />
         <p>🎨 本Webサイトは、「ブルーアーカイブ」非公式二次創作です。</p>
         <div className="flex flex-col items-end m-2">

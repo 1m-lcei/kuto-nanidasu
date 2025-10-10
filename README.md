@@ -2,7 +2,7 @@
 
 ![KUTO Logo](src/assets/logo.avif)
 
-This is the repository for a web application that provides the "Type Diagnosis" feature from Tactical Challenge (PvP).
+A web application that provides the "Type Diagnosis" from Tactical Challenge (PvP).
 
 You can try it out at:
 

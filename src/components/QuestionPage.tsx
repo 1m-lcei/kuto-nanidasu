@@ -72,7 +72,11 @@ function QuestionPage() {
           <DaggerIcon className="w-6 md:w-8 h-6 md:h-8 rotate-180" />
           <h3 className="text-base md:text-lg font-bold">何出す？</h3>
           <p className="text-sm md:text-base">
-            （<span className="font-semibold">考えに近い</span>編成）
+            （
+            <span className="font-semibold underline -underline-offset-2 decoration-4 decoration-amber-100">
+              考えに近い
+            </span>
+            編成）
           </p>
         </div>
         <form
