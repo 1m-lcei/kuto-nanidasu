@@ -6,22 +6,42 @@ type EasterEggImageProps = {
   currentQuestionIndex: number;
 };
 
-function getDeterministicRandom(seed: string, index: number): number {
-  const str = `${seed}-${index}`;
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0;
+export const EASTER_EGG_DISPLAY_RATE = 0.05;
+export const EASTER_EGG_ROTATED_RATE = 0.01;
+
+function hashStringToUint32(value: string): number {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < value.length; i++) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193);
   }
-  const x = Math.sin(hash) * 10000;
-  return x - Math.floor(x);
+
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x85ebca6b);
+  hash ^= hash >>> 13;
+  hash = Math.imul(hash, 0xc2b2ae35);
+  hash ^= hash >>> 16;
+  return hash >>> 0;
 }
 
-function determinesEasterEggDisplay(sessionId: string, index: number) {
-  const randomValue = getDeterministicRandom(sessionId, index);
+function getDeterministicRandom(
+  seed: string,
+  index: number,
+  salt: string,
+): number {
+  return hashStringToUint32(`${seed}:${index}:${salt}`) / 0x100000000;
+}
+
+export function determinesEasterEggDisplay(sessionId: string, index: number) {
+  const displayValue = getDeterministicRandom(sessionId, index, "display");
+  const rotateValue = getDeterministicRandom(sessionId, index, "rotate");
+  const isShown = displayValue < EASTER_EGG_DISPLAY_RATE;
+
   return {
-    isShown: randomValue < 0.05,
-    isRotated: randomValue < 0.01,
+    isShown,
+    isRotated:
+      isShown &&
+      rotateValue < EASTER_EGG_ROTATED_RATE / EASTER_EGG_DISPLAY_RATE,
   };
 }
 
