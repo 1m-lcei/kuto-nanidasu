@@ -18,7 +18,11 @@ function StartPage() {
         </span>
         を診断します。
       </p>
-      <button type="button" className="btn btn-neutral" onClick={handleOnClick}>
+      <button
+        type="button"
+        className="btn btn-neutral transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
+        onClick={handleOnClick}
+      >
         診断を始める
       </button>
     </div>

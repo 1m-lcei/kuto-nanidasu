@@ -113,7 +113,7 @@ function ResultPage() {
           <button
             type="button"
             onClick={handleOnClickRestart}
-            className="btn btn-neutral"
+            className="btn btn-neutral transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
           >
             もう一度診断する
           </button>
@@ -121,12 +121,16 @@ function ResultPage() {
             href="https://note.com/1m_lcei/n/n17eafb434e54"
             target="_blank"
             rel="noopener"
-            className="btn btn-neutral"
+            className="btn btn-neutral transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
           >
             📝解説 (note記事)
           </a>
         </div>
-        <button type="button" onClick={share} className="btn btn-link">
+        <button
+          type="button"
+          onClick={share}
+          className="btn btn-link transition-all duration-200 hover:scale-[1.05] active:scale-[0.95]"
+        >
           結果をシェアする
         </button>
         <button

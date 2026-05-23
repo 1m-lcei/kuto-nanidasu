@@ -106,7 +106,7 @@ function QuestionPage() {
           </ul>
           <button
             type="submit"
-            className="btn btn-neutral btn-md md:btn-lg"
+            className="btn btn-neutral btn-md md:btn-lg transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
             disabled={!selectedOptionId}
           >
             次へ
