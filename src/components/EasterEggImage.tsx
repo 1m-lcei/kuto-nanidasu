@@ -6,8 +6,19 @@ type EasterEggImageProps = {
   currentQuestionIndex: number;
 };
 
-function determinesEasterEggDisplay() {
-  const randomValue = Math.random();
+function getDeterministicRandom(seed: string, index: number): number {
+  const str = `${seed}-${index}`;
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  const x = Math.sin(hash) * 10000;
+  return x - Math.floor(x);
+}
+
+function determinesEasterEggDisplay(sessionId: string, index: number) {
+  const randomValue = getDeterministicRandom(sessionId, index);
   return {
     isShown: randomValue < 0.05,
     isRotated: randomValue < 0.01,
@@ -18,11 +29,10 @@ function EasterEggImage({
   sessionId,
   currentQuestionIndex,
 }: EasterEggImageProps) {
-  // biome-ignore lint/correctness/useExhaustiveDependencies: 同一のセッションIDかつ質問番号の場合に結果を保存
-  const { isShown, isRotated } = useMemo(determinesEasterEggDisplay, [
-    sessionId,
-    currentQuestionIndex,
-  ]);
+  const { isShown, isRotated } = useMemo(
+    () => determinesEasterEggDisplay(sessionId, currentQuestionIndex),
+    [sessionId, currentQuestionIndex],
+  );
 
   if (!isShown) {
     return null;
