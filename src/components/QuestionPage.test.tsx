@@ -33,6 +33,7 @@ describe("QuestionPage", () => {
   const mockDispatch = vi.fn();
 
   beforeEach(() => {
+    window.scrollTo = vi.fn();
     (useDiagnosisDispatch as ReturnType<typeof vi.fn>).mockReturnValue(
       mockDispatch,
     );
@@ -122,6 +123,20 @@ describe("QuestionPage", () => {
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "SUBMIT_ANSWER",
       payload: 1,
+    });
+  });
+
+  it("scrolls to the top immediately when shown", () => {
+    render(
+      <DiagnosisDataProvider>
+        <QuestionPage />
+      </DiagnosisDataProvider>,
+    );
+
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      top: 0,
+      left: 0,
+      behavior: "auto",
     });
   });
 });

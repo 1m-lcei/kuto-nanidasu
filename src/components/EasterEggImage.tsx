@@ -39,16 +39,21 @@ function EasterEggImage({
   }
 
   return (
-    <Picture
-      pathWithoutExtension="images/easteregg"
-      sourceExtension="png"
-      alt="Easter Egg"
-      className={
-        isRotated
-          ? "fixed bottom-4 left-4 -z-10 pointer-events-none mix-blend-multiply opacity-20 w-[min(16.6667vw,16.6667vh)] origin-bottom-right rotate-90 -translate-x-11/12"
-          : "fixed bottom-4 left-4 -z-10 pointer-events-none mix-blend-multiply opacity-20 w-[min(16.6667vw,16.6667vh)]"
-      }
-    />
+    <div
+      aria-hidden="true"
+      className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
+    >
+      <Picture
+        pathWithoutExtension="images/easteregg"
+        sourceExtension="png"
+        alt=""
+        className={
+          isRotated
+            ? "absolute bottom-4 left-4 mix-blend-multiply opacity-20 w-[min(16.6667vw,16.6667vh)] origin-bottom-right rotate-90 -translate-x-11/12"
+            : "absolute bottom-4 left-4 mix-blend-multiply opacity-20 w-[min(16.6667vw,16.6667vh)]"
+        }
+      />
+    </div>
   );
 }
 

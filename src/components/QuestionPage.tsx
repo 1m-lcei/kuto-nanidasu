@@ -8,15 +8,22 @@ import type { AnswerOption } from "@/types/KutoDiagnosisTypes";
 import { shuffle } from "@/utils/shuffle";
 import { DaggerIcon, ShieldIcon } from "./SvgIcons";
 
+function scrollQuestionToTop() {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+  const scrollingElement = document.scrollingElement ?? document.documentElement;
+  scrollingElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
 function QuestionPage() {
   const { questions } = useDiagnosisData();
   const { sessionId, currentQuestionIndex, selectedOptionId } =
     useDiagnosisState();
   const dispatch = useDiagnosisDispatch();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: 必要
   useLayoutEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollQuestionToTop();
   }, [currentQuestionIndex]);
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -49,7 +56,7 @@ function QuestionPage() {
 
   return (
     <>
-      <div className="flex flex-col items-center py-4 md:py-8 px-2 gap-2 md:gap-4">
+      <div className="relative z-10 flex flex-col items-center py-4 md:py-8 px-2 gap-2 md:gap-4">
         <h1 className="sr-only">何出す超会議 (S9) - 診断中</h1>
         <div className="container w-auto mb-2">
           <div className="flex items-end mb-1 ml-1 md:ml-0">
