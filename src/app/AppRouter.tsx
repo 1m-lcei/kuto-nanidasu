@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router";
+import { Navigate, Route, Routes, useNavigate } from "react-router";
 import { useDiagnosisState } from "@/app/DiagnosisState";
 import QuestionPage from "@/components/QuestionPage";
 import ResultPage from "@/components/ResultPage";
@@ -29,6 +29,7 @@ function AppRouter() {
     <Routes>
       <Route path="/" element={<StartPage />} />
       <Route path="/question" element={<QuestionPage />} />
+      <Route path="/questions" element={<Navigate to="/question" replace />} />
       <Route path="/result" element={<ResultPage />} />
     </Routes>
   );
