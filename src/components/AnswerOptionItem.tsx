@@ -21,14 +21,18 @@ function AnswerOptionItem({
   const isNone = id === "none";
   const handleOnChange = () => onSelect(id);
 
+  const uniqueId = `option-${groupName}-${id}`;
+
   return (
     <label
-      htmlFor={`option-${id}`}
+      htmlFor={uniqueId}
       className={`cursor-pointer p-2 md:p-4 flex items-center gap-2 md:gap-4 rounded-lg
-        ring-2 ${isSelected ? "ring-neutral" : "ring-transparent hover:ring-neutral-400"}`}
+        ring-2 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] ${
+          isSelected ? "ring-neutral bg-neutral/5" : "ring-transparent hover:ring-neutral-400"
+        }`}
     >
       <input
-        id={`option-${id}`}
+        id={uniqueId}
         type="radio"
         name={groupName}
         className="radio radio-neutral radio-xs md:radio-md"

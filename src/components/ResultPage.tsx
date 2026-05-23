@@ -31,6 +31,7 @@ function ResultPage() {
   return (
     <>
       <div className="flex flex-col items-center gap-2 md:gap-4 px-4 py-4 md:py-8">
+        <h1 className="sr-only">何出す超会議 (S9) - 診断結果</h1>
         <Logo />
         <div className="card md:card-border md:card-side md:border-1 md:border-neutral-400 md-2 md:md-0">
           <figure>
@@ -60,10 +61,11 @@ function ResultPage() {
                 <a
                   href={expertAccountLink}
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   className="link link-info ml-1 md:text-lg font-semibold"
                 >
                   {expertName}
+                  <span className="sr-only">（新しいウィンドウで開きます）</span>
                 </a>
               ) : (
                 <span className="ml-1 md:text-lg">{expertName}</span>
@@ -120,10 +122,11 @@ function ResultPage() {
           <a
             href="https://note.com/1m_lcei/n/n17eafb434e54"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             className="btn btn-neutral transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
           >
             📝解説 (note記事)
+            <span className="sr-only">（新しいウィンドウで開きます）</span>
           </a>
         </div>
         <button

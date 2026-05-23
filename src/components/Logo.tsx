@@ -5,7 +5,7 @@ function Logo() {
   return (
     <picture>
       <source srcSet={logoAvif} type="image/avif" />
-      <img src={logoPng} alt="何切る超会議ロゴ" />
+      <img src={logoPng} alt="何出す超会議ロゴ" />
     </picture>
   );
 }

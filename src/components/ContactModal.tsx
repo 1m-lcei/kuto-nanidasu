@@ -20,6 +20,7 @@ function ContactModal({ ref }: ContactModalProps) {
             className="link"
           >
             @1m_lcei
+            <span className="sr-only">（新しいウィンドウで開きます）</span>
           </a>
         </p>
         <h2 className="text-lg md:text-xl border-b border-neutral-300 mb-3">
@@ -41,9 +42,11 @@ function ContactModal({ ref }: ContactModalProps) {
           <a
             href="https://github.com/1m-lcei/kuto-nanidasu"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
+            aria-label="GitHubリポジトリ"
           >
             <GithubIcon className="w-6 h-6" />
+            <span className="sr-only">（新しいウィンドウで開きます）</span>
           </a>
         </div>
       </div>

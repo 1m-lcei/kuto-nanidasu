@@ -50,6 +50,7 @@ function QuestionPage() {
   return (
     <>
       <div className="flex flex-col items-center py-4 md:py-8 px-2 gap-2 md:gap-4">
+        <h1 className="sr-only">何出す超会議 (S9) - 診断中</h1>
         <div className="container w-auto mb-2">
           <div className="flex items-end mb-1 ml-1 md:ml-0">
             <ShieldIcon className="w-7 md:w-8 h-7 md:h-8" />
@@ -116,6 +117,7 @@ function QuestionPage() {
           className="progress w-1/2 progress-info"
           value={progress}
           max="100"
+          aria-label="診断の進捗状況"
         ></progress>
       </div>
       <EasterEggImage

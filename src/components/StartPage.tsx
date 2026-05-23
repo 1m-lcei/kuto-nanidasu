@@ -10,6 +10,7 @@ function StartPage() {
 
   return (
     <div className="flex flex-col items-center gap-4 md:gap-8 px-4 py-4 md:py-8">
+      <h1 className="sr-only">何出す超会議 (S9) 戦術対抗戦診断</h1>
       <Logo />
       <p className="text-sm md:text-base">
         あなたの
