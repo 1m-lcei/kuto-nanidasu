@@ -9,8 +9,10 @@ import { DiagnosisProvider } from "@/app/DiagnosisState";
 
 const root = document.getElementById("root") as ReactDOM.Container;
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 ReactDOM.createRoot(root).render(
-  <BrowserRouter basename="/kuto-nanidasu">
+  <BrowserRouter basename={basename}>
     <ErrorBoundary
       fallback={
         <div className="p-4 text-center">
