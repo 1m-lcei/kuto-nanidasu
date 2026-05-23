@@ -25,13 +25,24 @@ type DiagnosisAction =
   | { type: "SELECT_ANSWER"; payload: string } // optionId
   | { type: "SUBMIT_ANSWER"; payload: number }; // question count
 
-const initialDiagnosisState: DiagnosisState = {
-  sessionId: crypto.randomUUID(),
+function getUUID(): string {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+export const createInitialDiagnosisState = (): DiagnosisState => ({
+  sessionId: getUUID(),
   status: "idle",
   answers: {},
   currentQuestionIndex: 0,
   selectedOptionId: null,
-};
+});
 
 export const DiagnosisContext = createContext<
   | { state: DiagnosisState; dispatch: React.Dispatch<DiagnosisAction> }
@@ -57,8 +68,8 @@ const restoreState = (initialState: DiagnosisState) => {
 export const DiagnosisProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(
     diagnosisReducer,
-    initialDiagnosisState,
-    restoreState,
+    undefined,
+    () => restoreState(createInitialDiagnosisState()),
   );
 
   useEffect(() => {
@@ -82,7 +93,7 @@ const diagnosisReducer = (
   switch (action.type) {
     case "START_DIAGNOSIS":
       return {
-        sessionId: crypto.randomUUID(),
+        sessionId: getUUID(),
         status: "in-progress",
         currentQuestionIndex: 0,
         answers: {},

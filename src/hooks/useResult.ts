@@ -79,7 +79,6 @@ function useResult() {
     return resultTypeId;
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: セッションIDで結果をメモ化する
   const result = useMemo(() => {
     // [question index]: optionId → [optionId]: count
     const answerCounts = generateAnswerCounts(questions, answers);
@@ -103,7 +102,7 @@ function useResult() {
           : 100, // "00"の場合は100%
       matchRates: matchRates,
     };
-  }, [sessionId]);
+  }, [sessionId, questions, answers, kutoTypes]);
 
   return result;
 }
