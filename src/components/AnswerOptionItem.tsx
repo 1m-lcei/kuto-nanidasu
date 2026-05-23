@@ -27,7 +27,7 @@ function AnswerOptionItem({
     <label
       htmlFor={uniqueId}
       className={`cursor-pointer p-2 md:p-4 flex items-center gap-2 md:gap-4 rounded-lg
-        ring-2 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] ${
+        ring-2 transition-all duration-200 ${
           isSelected ? "ring-neutral bg-neutral/5" : "ring-transparent hover:ring-neutral-400"
         }`}
     >
