@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useRef, useState } from "react";
 import { useDiagnosisDispatch } from "@/app/DiagnosisState";
 import ContactModal from "@/components/ContactModal";
 import Logo from "@/components/Logo";
@@ -13,7 +13,7 @@ function ResultPage() {
 
   const { displayName, flavorText, expertName, expertAccountLink } = resultType;
 
-  const modalId = useId();
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
   const [showExpertName, setShowExpertName] = useState(false);
 
   const handleOnChangeExpertNameShown = (
@@ -25,7 +25,7 @@ function ResultPage() {
     dispatch({ type: "RESTART_DIAGNOSIS" });
   };
   const handleOnClickToShowContactModal = () => {
-    (document.getElementById(modalId) as HTMLDialogElement).showModal();
+    dialogRef.current?.showModal();
   };
 
   return (
@@ -137,7 +137,7 @@ function ResultPage() {
           連絡先・使用画像
         </button>
       </div>
-      <ContactModal modalId={modalId} />
+      <ContactModal ref={dialogRef} />
     </>
   );
 }

@@ -1,12 +1,13 @@
+import { type Ref } from "react";
 import { GithubIcon } from "@/components/SvgIcons";
 
 type ContactModalProps = {
-  modalId: string;
+  ref: Ref<HTMLDialogElement | null>;
 };
 
-function ContactModal({ modalId }: ContactModalProps) {
+function ContactModal({ ref }: ContactModalProps) {
   return (
-    <dialog id={modalId} className="modal">
+    <dialog ref={ref} className="modal">
       <div className="modal-box text-left text-sm md:text-base">
         <h2 className="text-lg md:text-xl border-b border-neutral-300 mb-3">
           連絡先
