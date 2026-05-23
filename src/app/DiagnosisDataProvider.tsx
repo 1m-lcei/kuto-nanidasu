@@ -4,12 +4,13 @@ import {
 } from "@/app/DiagnosisData.tsx";
 
 export function loadDiagnosisData(): Promise<DiagnosisData> {
+  const baseUrl = import.meta.env.BASE_URL;
   return Promise.all([
-    fetch("questions.json").then((res) => {
+    fetch(`${baseUrl}questions.json`).then((res) => {
       if (!res.ok) throw new Error("Failed to fetch questions.json");
       return res.json();
     }),
-    fetch("kutoTypes.json").then((res) => {
+    fetch(`${baseUrl}kutoTypes.json`).then((res) => {
       if (!res.ok) throw new Error("Failed to fetch kutoTypes.json");
       return res.json();
     }),

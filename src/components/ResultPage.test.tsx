@@ -107,7 +107,7 @@ describe("ResultPage", () => {
     ).toBeInTheDocument();
     expect(screen.getByAltText("テストタイプ1")).toHaveAttribute(
       "src",
-      "images/icons/type1.jpg",
+      "/images/icons/type1.jpg",
     );
     expect(screen.getByText(/あなたはすごい/)).toBeInTheDocument();
     expect(screen.getByText("テスト専門家1")).toBeInTheDocument();
