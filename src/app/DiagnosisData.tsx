@@ -11,6 +11,7 @@ export const DiagnosisDataContext = createContext<DiagnosisData | undefined>(
 );
 
 export function createDiagnosisDataProvider(promise: Promise<DiagnosisData>) {
+  // biome-ignore lint/correctness/noComponentHookFactories: The provider is created once at module scope with a stable promise.
   return function DiagnosisDataProvider({ children }: { children: ReactNode }) {
     const data = use(promise);
 

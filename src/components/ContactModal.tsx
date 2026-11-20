@@ -1,4 +1,4 @@
-import { type Ref } from "react";
+import type { Ref } from "react";
 import { GithubIcon } from "@/components/SvgIcons";
 
 type ContactModalProps = {

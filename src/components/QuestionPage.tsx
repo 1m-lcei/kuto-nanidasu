@@ -22,9 +22,8 @@ function QuestionPage() {
     useDiagnosisState();
   const dispatch = useDiagnosisDispatch();
 
-  useLayoutEffect(() => {
-    scrollQuestionToTop();
-  }, [currentQuestionIndex]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Scroll once when a new question is shown.
+  useLayoutEffect(scrollQuestionToTop, [currentQuestionIndex]);
 
   const currentQuestion = questions[currentQuestionIndex];
   const shuffledOptions = useMemo(() => {
